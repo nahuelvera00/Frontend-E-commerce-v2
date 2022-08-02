@@ -692,6 +692,7 @@ export function agregarEventoAction(id, evento) {
       dispatch(agregarEventoProductoExito(respuesta.data));
     } catch (error) {
       dispatch(agregarEventoProductoError(true));
+      console.log(error);
     }
   };
 }

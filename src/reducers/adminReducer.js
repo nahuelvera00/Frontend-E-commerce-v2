@@ -358,8 +358,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        productosEventoSeleccionado: state.productos.map((producto) =>
-          producto.evento === state.eventoSeleccionado ? producto : null
+        productosEventoSeleccionado: state.productos.filter(
+          (producto) => producto.evento === state.eventoSeleccionado
         ),
         productosSinEvento: state.productos.filter(
           (producto) => producto.evento === null
@@ -386,13 +386,13 @@ export default function (state = initialState, action) {
             ? action.payload
             : producto
         ),
+        productosSinEvento: state.productosSinEvento.filter(
+          (producto) => producto._id !== state.productoAgregarEvento
+        ),
         productosEventoSeleccionado: [
           ...state.productosEventoSeleccionado,
           action.payload,
         ],
-        productosSinEvento: state.productos.filter(
-          (producto) => producto.evento === null
-        ),
         productoAgregarEvento: null,
       };
     case AGREGAR_EVENTO_PRODUCTO_ERROR:
