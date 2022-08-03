@@ -52,7 +52,7 @@ const AdminCategories = () => {
                 </th>
                 <th>
                   <div className="w-full flex pt-1 pl-1">
-                    <p>acciones</p>
+                    <p>Acciones</p>
                   </div>
                 </th>
               </tr>
