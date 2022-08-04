@@ -58,15 +58,21 @@ import {
   AGREGAR_EVENTO_PRODUCTO,
   AGREGAR_EVENTO_PRODUCTO_EXITO,
   AGREGAR_EVENTO_PRODUCTO_ERROR,
+  //QUITAR EVENTO A PRODUCTO
+  QUITAR_EVENTO_PRODUCTO,
+  QUITAR_EVENTO_PRODUCTO_EXITO,
+  QUITAR_EVENTO_PRODUCTO_ERROR,
   //
   AGREGAR_PRODUCTO_EVENTO,
   AGREGAR_PRODUCTO_EVENTO_EXITO,
   AGREGAR_PRODUCTO_EVENTO_ERROR,
+  //GUARDAR EVENTO
+  GUARDAR_EVENTO,
   //ELIMINAR EVENTO A PRODUCTO
   ELIMINAR_EVENTO_PRODUCTO,
   ELIMINAR_EVENTO_PRODUCTO_EXITO,
   ELIMINAR_EVENTO_PRODUCTO_ERROR,
-} from '../types';
+} from "../types";
 
 //STATE-INICIAL
 const initialState = {
@@ -82,6 +88,7 @@ const initialState = {
   productosEventoSeleccionado: [],
   productosSinEvento: [],
   productoAgregarEvento: null,
+  productoQuitarEvento: null,
   categorias: [],
   subCategorias: [],
   subCategoriaEliminar: null,
@@ -390,8 +397,8 @@ export default function (state = initialState, action) {
           (producto) => producto._id !== state.productoAgregarEvento
         ),
         productosEventoSeleccionado: [
-          ...state.productosEventoSeleccionado,
           action.payload,
+          ...state.productosEventoSeleccionado,
         ],
         productoAgregarEvento: null,
       };
@@ -401,6 +408,38 @@ export default function (state = initialState, action) {
         loading: false,
         error: action.payload,
         productoAgregarEvento: null,
+      };
+
+    case QUITAR_EVENTO_PRODUCTO:
+      return {
+        ...state,
+        loading: true,
+        productoQuitarEvento: action.payload,
+      };
+    case QUITAR_EVENTO_PRODUCTO_EXITO:
+      return {
+        ...state,
+        loading: false,
+        productos: state.productos.map((producto) =>
+          producto._id === state.productoQuitarEvento
+            ? action.payload
+            : producto
+        ),
+        productosEventoSeleccionado: state.productosEventoSeleccionado.filter(
+          (producto) => producto._id !== state.productoQuitarEvento
+        ),
+        productosSinEvento: [action.payload, ...state.productosSinEvento],
+        productoQuitarEvento: null,
+      };
+    case QUITAR_EVENTO_PRODUCTO_ERROR:
+      return {
+        ...state,
+      };
+    case GUARDAR_EVENTO:
+      return {
+        ...state,
+        eventoSeleccionado: null,
+        productosEventoSeleccionado: [],
       };
     //DEFAULT
     default:

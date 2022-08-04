@@ -1,9 +1,9 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
 
 //REDUX
-import { useSelector, useDispatch } from 'react-redux';
-import { agregarEventoAction } from '../actions/AdminAction';
+import { useSelector, useDispatch } from "react-redux";
+import { agregarEventoAction } from "../actions/AdminAction";
 
 const ProductsAddEventList = ({ producto }) => {
   const params = useParams();
@@ -17,35 +17,32 @@ const ProductsAddEventList = ({ producto }) => {
 
   const agregarEventoProducto = (id, evento) =>
     dispatch(agregarEventoAction(id, evento));
-  if (producto.evento !== null) {
-    return null;
-  }
-  if (producto.evento === null) {
-    return (
-      <tr>
-        <td>
-          <div className="w-full flex justify-center">
-            <img className="w-12" src={URL} alt="" />
-          </div>
-        </td>
-        <td>
-          <div>
-            <p>{producto.name}</p>
-          </div>
-        </td>
-        <td>
-          <div>
-            <button
-              type="button"
-              onClick={() => agregarEventoProducto(producto._id, evento[0])}
-            >
-              agregar
-            </button>
-          </div>
-        </td>
-      </tr>
-    );
-  }
+
+  return (
+    <tr>
+      <td>
+        <div className='w-full flex justify-center'>
+          <img className='w-12' src={URL} alt='' />
+        </div>
+      </td>
+      <td>
+        <div>
+          <p>{producto.name}</p>
+        </div>
+      </td>
+      <td>
+        <div>
+          <button
+            className='uppercase text-sm text-white font-bold flex w-full justify-center items-center bg-blue-300 rounded-md hover:bg-blue-400'
+            type='button'
+            onClick={() => agregarEventoProducto(producto._id, evento[0])}
+          >
+            agregar
+          </button>
+        </div>
+      </td>
+    </tr>
+  );
 };
 
 export default ProductsAddEventList;

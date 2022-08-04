@@ -58,18 +58,24 @@ import {
   AGREGAR_EVENTO_PRODUCTO,
   AGREGAR_EVENTO_PRODUCTO_EXITO,
   AGREGAR_EVENTO_PRODUCTO_ERROR,
+  //QUITAR EVENTO A PRODUCTO
+  QUITAR_EVENTO_PRODUCTO,
+  QUITAR_EVENTO_PRODUCTO_EXITO,
+  QUITAR_EVENTO_PRODUCTO_ERROR,
   //
   AGREGAR_PRODUCTO_EVENTO,
   AGREGAR_PRODUCTO_EVENTO_EXITO,
   AGREGAR_PRODUCTO_EVENTO_ERROR,
+  //GUARDAR EVENTO
+  GUARDAR_EVENTO,
   //ELIMINAR EVENTO A PRODUCTO
   ELIMINAR_EVENTO_PRODUCTO,
   ELIMINAR_EVENTO_PRODUCTO_EXITO,
   ELIMINAR_EVENTO_PRODUCTO_ERROR,
-} from '../types';
-import clienteAxios from '../config/clienteAxios';
+} from "../types";
+import clienteAxios from "../config/clienteAxios";
 //import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert';
+import Swal from "sweetalert";
 
 //const navigate = useNavigate();
 
@@ -82,26 +88,26 @@ export function crearNuevoProductoAction(product) {
 
     try {
       //Configuracion de token
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
       //insertar en la API
 
       const respuesta = await clienteAxios.post(
-        '/admin/new-product',
+        "/admin/new-product",
         product,
         config
       );
       //Si todo sale bien, actualiza el state
       dispatch(agregarProductoExito(respuesta.data));
-      Swal('Producto creado correctamente!', {
-        icon: 'success',
+      Swal("Producto creado correctamente!", {
+        icon: "success",
       });
       return true;
     } catch (error) {
@@ -136,12 +142,12 @@ export function borrarProductoAction(id) {
 
     try {
       //Configuracion de token
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
@@ -150,8 +156,8 @@ export function borrarProductoAction(id) {
       dispatch(eliminarProductoExito());
 
       //Si se elimina correctamente
-      Swal('Producto eliminado correctamente!', {
-        icon: 'success',
+      Swal("Producto eliminado correctamente!", {
+        icon: "success",
       });
     } catch (error) {
       console.log(error);
@@ -178,7 +184,7 @@ export function obtenerProductosAction() {
   return async (dispatch) => {
     dispatch(obtenerProductos());
     try {
-      const respuesta = await clienteAxios.get('/products');
+      const respuesta = await clienteAxios.get("/products");
       dispatch(obtenerProductosExito(respuesta.data));
     } catch (error) {
       console.log(error);
@@ -211,17 +217,17 @@ export function obtenerSubCategoriasAction() {
 
     try {
       //Configuracion de token
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
-      const respuesta = await clienteAxios.get('/admin/sub-categories', config);
+      const respuesta = await clienteAxios.get("/admin/sub-categories", config);
       dispatch(obtenerSubCategoriasExito(respuesta.data));
     } catch (error) {
       console.log(error);
@@ -252,24 +258,24 @@ export function nuevaSubCategoriaAction(subCategory) {
     dispatch(nuevaSubCategoria());
     try {
       //Configuracion de token
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
       const respuesta = await clienteAxios.post(
-        '/admin/sub-category/new',
+        "/admin/sub-category/new",
         subCategory,
         config
       );
       dispatch(nuevaSubCategoriaExito(respuesta.data));
-      Swal('Subcategoria creado correctamente!', {
-        icon: 'success',
+      Swal("Subcategoria creado correctamente!", {
+        icon: "success",
       });
       return true;
     } catch (error) {
@@ -301,12 +307,12 @@ export function subCategoriaEliminarAction(id) {
     dispatch(eliminarSubCategoria(id));
     const URL = `/admin/sub-category/${id}`;
     //Configuracion de token
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) return;
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     };
@@ -315,8 +321,8 @@ export function subCategoriaEliminarAction(id) {
       await clienteAxios.delete(URL, config);
       dispatch(eliminarSubCategoriaExito());
       //Si se elimina correctamente
-      Swal('Categoria eliminada correctamente!', {
-        icon: 'success',
+      Swal("Categoria eliminada correctamente!", {
+        icon: "success",
       });
     } catch (error) {
       console.log(error);
@@ -345,17 +351,17 @@ export function obtenerMarcasAction() {
     dispatch(obtenerMarcas());
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
-      const respuesta = await clienteAxios.get('/admin/brands', config);
+      const respuesta = await clienteAxios.get("/admin/brands", config);
       dispatch(obtenerMarcasExito(respuesta.data));
     } catch (error) {
       console.log(error);
@@ -384,24 +390,24 @@ export function crearMarcaAction(marca) {
   return async (dispatch) => {
     dispatch(crearMarca());
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
       const respuesta = await clienteAxios.post(
-        '/admin/brands/new-brand',
+        "/admin/brands/new-brand",
         marca,
         config
       );
       dispatch(crearMarcaExito(respuesta.data));
-      Swal('Subcategoria creado correctamente!', {
-        icon: 'success',
+      Swal("Subcategoria creado correctamente!", {
+        icon: "success",
       });
       return true;
     } catch (error) {
@@ -432,12 +438,12 @@ export function obtenerMarcaAction(id) {
     dispatch(obtenerMarca());
     try {
       //CONFIG TOKEN
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
@@ -472,12 +478,12 @@ export function editarMarcaAction(nombre, id) {
     dispatch(editarMarca(id));
     try {
       //CONFIG TOKEN
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
@@ -488,8 +494,8 @@ export function editarMarcaAction(nombre, id) {
         config
       );
       dispatch(editarMarcaExito(respuesta.data));
-      Swal('Marca editada correctamente!', {
-        icon: 'success',
+      Swal("Marca editada correctamente!", {
+        icon: "success",
       });
       return true;
     } catch (error) {
@@ -522,19 +528,19 @@ export function eliminarMarcaAction(id) {
     dispatch(eliminarMarca(id));
     try {
       //CONFIG TOKEN
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
       await clienteAxios.delete(`/admin/brands/${id}`, config);
-      Swal('Marca eliminada correctamente!', {
-        icon: 'success',
+      Swal("Marca eliminada correctamente!", {
+        icon: "success",
       });
       dispatch(eliminarMarcaExito());
     } catch (error) {
@@ -565,16 +571,16 @@ export function obtenerCategoriasAction() {
   return async (dispatch) => {
     dispatch(obtenerCategorias());
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
-      const respuesta = await clienteAxios.get('/admin/categories', config);
+      const respuesta = await clienteAxios.get("/admin/categories", config);
       dispatch(obtenerCategoriasExito(respuesta.data));
     } catch (error) {
       console.log(error);
@@ -605,16 +611,16 @@ export function obtenerEventosAction() {
     dispatch(obtenerEventos());
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
-      const respuesta = await clienteAxios.get('/admin/events', config);
+      const respuesta = await clienteAxios.get("/admin/events", config);
       dispatch(obtenerEventosExito(respuesta.data));
     } catch (error) {
       dispatch(obtenerEventosError(true));
@@ -671,12 +677,12 @@ export function agregarEventoAction(id, evento) {
     dispatch(agregarEventoProducto(id));
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
@@ -710,4 +716,60 @@ const agregarEventoProductoExito = (respuesta) => ({
 const agregarEventoProductoError = (estado) => ({
   type: AGREGAR_EVENTO_PRODUCTO_ERROR,
   payload: estado,
+});
+
+export function quitarEventoAction(id) {
+  return async (dispatch) => {
+    dispatch(quitarEvento(id));
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const respuesta = await clienteAxios.put(
+        `/admin/products/delete-event/${id}`,
+        {
+          evento: null,
+        },
+        config
+      );
+      dispatch(quitarEventoExito(respuesta.data));
+    } catch (error) {
+      console.log(error);
+      dispatch(quitarEventoError(true));
+    }
+  };
+}
+
+const quitarEvento = (producto) => ({
+  type: QUITAR_EVENTO_PRODUCTO,
+  payload: producto,
+});
+
+const quitarEventoExito = (respuesta) => ({
+  type: QUITAR_EVENTO_PRODUCTO_EXITO,
+  payload: respuesta,
+});
+
+const quitarEventoError = (estado) => ({
+  type: QUITAR_EVENTO_PRODUCTO_ERROR,
+  payload: estado,
+});
+
+export function guardarEventoAction() {
+  return async (dispatch) => {
+    await dispatch(guardarEvento());
+    return true;
+  };
+}
+
+const guardarEvento = () => ({
+  type: GUARDAR_EVENTO,
 });
