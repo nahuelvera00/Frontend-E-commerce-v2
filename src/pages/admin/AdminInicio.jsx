@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState } from "react";
+import { useEffect } from "react";
 
 //redux
 import {
   obtenerSubCategoriasAction,
   obtenerMarcasAction,
   obtenerCategoriasAction,
-} from '../../actions/AdminAction';
-import { useDispatch } from 'react-redux';
+} from "../../actions/AdminAction";
+import { useDispatch } from "react-redux";
 
 const AdminInicio = () => {
   const [estado, setEstado] = useState(false);
@@ -35,19 +35,19 @@ const AdminInicio = () => {
   return (
     <div>
       <h1>Inicio</h1>
-      <div className="flex flex-col md:flex-row gap-1">
-        <div className="w-1/2 bg-gray-400 py-2 px-4">
-          <p className="">Estadisticas</p>
-          <input type="button" value="Cambiar Color" onClick={cambiarColor} />
+      <div className='flex flex-col md:flex-row gap-1'>
+        <div className='w-1/2 bg-gray-400 py-2 px-4'>
+          <p className=''>Estadisticas</p>
+          <input type='button' value='Cambiar Color' onClick={cambiarColor} />
         </div>
 
-        <div className="w-1/2 bg-gray-400 py-2 px-4">
+        <div className='w-1/2 bg-gray-400 py-2 px-4'>
           <p>Ultimas Ventas</p>
           <ul
             className={
               estado
-                ? 'bg-green-400'
-                : 'bg-red-400 hover:bg-red-600 transition-colors'
+                ? "bg-green-400"
+                : "bg-red-400 hover:bg-red-600 transition-colors"
             }
           >
             <li>
