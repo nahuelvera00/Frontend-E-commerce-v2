@@ -7,7 +7,7 @@ const ProductoVistaPrevia = ({ producto }) => {
   return (
     <Link
       className='bg-gray-100 hover:bg-gray-200 transition-colors rounded-md p-1'
-      to='/auth'
+      to={`/home/product/${producto._id}`}
     >
       <div className='flex justify-center items-center'>
         <img className='h-24 w-full object-cover rounded-md' src={URL} alt='' />

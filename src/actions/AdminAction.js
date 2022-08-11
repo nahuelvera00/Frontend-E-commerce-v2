@@ -620,7 +620,7 @@ export function obtenerEventosAction() {
           Authorization: `Bearer ${token}`,
         },
       };
-      const respuesta = await clienteAxios.get("/admin/events", config);
+      const respuesta = await clienteAxios.get("/admin/events");
       dispatch(obtenerEventosExito(respuesta.data));
     } catch (error) {
       dispatch(obtenerEventosError(true));

@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+//COMPONENTES
+import ProductoVistaPrevia from "../../components/ProductoVistaPrevia";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { obtenerProductosClienteAction } from "../../actions/ClientAction";
-import ProductoVistaPrevia from "../../components/ProductoVistaPrevia";
+import { obtenerEventosClienteAction } from "../../actions/ClientAction";
 
 const Inicio = () => {
   //DEFINIR ELEMENTos
@@ -17,6 +19,9 @@ const Inicio = () => {
   useState(() => {
     const obtenerProductos = () => dispatch(obtenerProductosClienteAction());
     obtenerProductos();
+
+    const obtenerEventos = () => dispatch(obtenerEventosClienteAction());
+    obtenerEventos();
   }, []);
   return (
     <div className='flex flex-col w-full p-1'>

@@ -25,6 +25,7 @@ import EditEvents from "./pages/admin/EditEvents";
 import AddProductsEvent from "./pages/admin/AddProductsEvent";
 import ClientLayout from "./layout/ClientLayout";
 import Inicio from "./pages/client/Inicio";
+import Producto from "./pages/client/Producto";
 
 function App() {
   return (
@@ -33,11 +34,12 @@ function App() {
         <Provider store={store}>
           <Routes>
             //RutasPublicas
-            <Route path='/' element={<ClientLayout />}>
+            <Route path='home' element={<ClientLayout />}>
               <Route index element={<Inicio />} />
+              <Route path='product/:id' element={<Producto />} />
             </Route>
             //AUTENTICACION
-            <Route path='/auth' element={<AuthLayout />}>
+            <Route path='auth' element={<AuthLayout />}>
               <Route index element={<Login />} />
               <Route path='register' element={<Registrar />} />
               <Route path='confirm-account/:id' element={<ConfirmarCuenta />} />
