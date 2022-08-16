@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import Carousel from "../../components/Carousel";
 
 //REDUX
-import { useSelector } from "react-redux";
-import Carousel from "../../components/Carousel";
+import { useSelector, useDispatch } from "react-redux";
+import { agregarProductoCarritoAction } from "../../actions/ClientAction";
 
 const Producto = () => {
   const params = useParams();
-
+  const dispatch = useDispatch();
   const productos = useSelector((state) => state.cliente.productos);
   const producto = productos.filter((producto) => producto._id === params.id);
   const eventos = useSelector((state) => state.cliente.eventos);
@@ -25,6 +26,17 @@ const Producto = () => {
   for (let valor in stock) {
     suma += stock[valor];
   }
+  const [talle, setTalle] = useState({
+    talle: "small",
+  });
+  //SELECCIONAR TALLE PRODUCTO
+  const onChange = (e) => {
+    setTalle({ ...talle, [e.target.name]: e.target.value });
+  };
+  //AGREGAR PRODUCTO AL CARRO
+  const agregarProductoCarro = (talle, id) => {
+    dispatch(agregarProductoCarritoAction(talle, id));
+  };
 
   return (
     <div className='flex flex-col'>
@@ -62,7 +74,7 @@ const Producto = () => {
       <div className='mx-5'>
         <div className='flex'>
           <h1 className='mr-2'>Talle:</h1>
-          <select className='w-16' name='' id=''>
+          <select className='w-16' name='talle' id='' onChange={onChange}>
             {producto[0].waist.small > 0 ? (
               <option className='font-semibold' value='small'>
                 S
@@ -86,7 +98,10 @@ const Producto = () => {
           </select>
         </div>
         {suma > 0 ? (
-          <button className='flex w-full justify-center mt-2 p-2 text-white font-bold uppercase bg-green-600 hover:bg-green-700 rounded-md'>
+          <button
+            onClick={(e) => agregarProductoCarro(talle, params.id)}
+            className='flex w-full justify-center mt-2 p-2 text-white font-bold uppercase bg-green-600 hover:bg-green-700 rounded-md'
+          >
             agregar al carrito
           </button>
         ) : (

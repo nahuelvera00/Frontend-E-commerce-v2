@@ -1,16 +1,16 @@
-import React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import BurgerButton from './BurguerButton';
-import { Link } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import React from "react";
+import { useState } from "react";
+import styled from "styled-components";
+import BurgerButton from "./BurguerButton";
+import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const HeaderAdmin = () => {
   const { cerrarSesionAuth } = useAuth();
 
   const handleCerrarSesion = () => {
     cerrarSesionAuth();
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   };
 
   const [clicked, setClicked] = useState(false);
@@ -20,39 +20,39 @@ const HeaderAdmin = () => {
   return (
     <>
       <NavContainer>
-        <Link className="text-white font-bold text-xl" to="/admin">
+        <Link className='text-white font-bold text-xl' to='/admin'>
           Admin
         </Link>
         {screen.width <= 768 ? null : (
-          <div className="btn-logout">
-            <button type="button" onClick={handleCerrarSesion}>
+          <div className='btn-logout'>
+            <button type='button' onClick={handleCerrarSesion}>
               Cerrar Sesion
             </button>
           </div>
         )}
         <div
-          className={`text-white uppercase links ${clicked ? 'active' : ''}`}
+          className={`text-white uppercase links ${clicked ? "active" : ""}`}
         >
-          <div className="pt-2">
-            <Link to="products">Productos</Link>
+          <div className='pt-2'>
+            <Link to='products'>Productos</Link>
           </div>
-          <div className="py-1">
-            <Link to="orders">Pedidos</Link>
+          <div className='py-1'>
+            <Link to='orders'>Pedidos</Link>
           </div>
-          <div className="py-1">
-            <Link to="events">Eventos</Link>
+          <div className='py-1'>
+            <Link to='events'>Eventos</Link>
           </div>
-          <div className="py-1">
-            <Link to="categories-brands">Categorias y Marcas</Link>
+          <div className='py-1'>
+            <Link to='categories-brands'>Categorias y Marcas</Link>
           </div>
-          <div className="pb-2">
-            <button type="button" onClick={handleCerrarSesion}>
+          <div className='pb-2'>
+            <button type='button' onClick={handleCerrarSesion}>
               Cerrar Sesion
             </button>
           </div>
         </div>
 
-        <div className="burguer">
+        <div className='burguer'>
           <BurgerButton clicked={clicked} handleClick={handleClick} />
         </div>
       </NavContainer>

@@ -39,13 +39,16 @@ const Carousel = () => {
   };
 
   return (
-    <div className='flex flex-col m-5 h-[345px] justify-center items-center'>
+    <div className='flex flex-col m-5 h-[345px] justify-center items-center z-10'>
       <img
         className='px-2 min-h-[345px] w-full object-cover'
         src={`${import.meta.env.VITE_BACKEND_URL}/images/${selectedImage}`}
         alt='Imagen'
       />
-      <button className='absolute left-2 font-bold text-2xl' onClick={previous}>
+      <button
+        className='absolute left-2 font-bold text-2xl z-10'
+        onClick={previous}
+      >
         {"<"}
       </button>
       <button className='absolute right-2 font-bold text-2xl' onClick={next}>

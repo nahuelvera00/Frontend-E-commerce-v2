@@ -5,11 +5,17 @@ import {
   OBTENER_EVENTOS_CLIENTE,
   OBTENER_EVENTOS_CLIENTE_EXITO,
   OBTENER_EVENTOS_CLIENTE_ERROR,
+  AGREGAR_PRODUCTO_CARRITO,
+  AGREGAR_PRODUCTO_CARRITO_ERROR,
+  AGREGAR_PRODUCTO_CARRITO_EXITO,
+  MENU,
 } from "../types";
 
 const initialState = {
   productos: [],
+  carrito: [],
   eventos: [],
+  menu: false,
   loading: false,
   error: null,
 };
@@ -50,6 +56,28 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case AGREGAR_PRODUCTO_CARRITO:
+      return {
+        ...state,
+        loading: true,
+      };
+    case AGREGAR_PRODUCTO_CARRITO_EXITO:
+      return {
+        ...state,
+        carrito: [...state.carrito, action.payload],
+        loading: false,
+      };
+    case AGREGAR_PRODUCTO_CARRITO_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    case MENU:
+      return {
+        ...state,
+        menu: !state.menu,
       };
     default:
       return state;

@@ -5,6 +5,10 @@ import {
   OBTENER_EVENTOS_CLIENTE,
   OBTENER_EVENTOS_CLIENTE_EXITO,
   OBTENER_EVENTOS_CLIENTE_ERROR,
+  AGREGAR_PRODUCTO_CARRITO,
+  AGREGAR_PRODUCTO_CARRITO_ERROR,
+  AGREGAR_PRODUCTO_CARRITO_EXITO,
+  MENU,
 } from "../types";
 
 import clienteAxios from "../config/clienteAxios";
@@ -62,4 +66,45 @@ const obtenerEventosExito = (respuesta) => ({
 const obtenerEventosError = (estado) => ({
   type: OBTENER_EVENTOS_CLIENTE_ERROR,
   payload: estado,
+});
+
+//AGREGAR UN PRODUCTO AL CARRITO
+export function agregarProductoCarritoAction({ talle }, id) {
+  return async (dispatch) => {
+    dispatch(agregarProductoCarrito());
+    const productoAgregar = {
+      talle,
+      producto: id,
+    };
+
+    try {
+      dispatch(agregarProductoCarritoExito(productoAgregar));
+    } catch (error) {
+      dispatch(agregarProductoCarritoError(true));
+    }
+  };
+}
+
+const agregarProductoCarrito = () => ({
+  type: AGREGAR_PRODUCTO_CARRITO,
+});
+
+const agregarProductoCarritoExito = (producto) => ({
+  type: AGREGAR_PRODUCTO_CARRITO_EXITO,
+  payload: producto,
+});
+
+const agregarProductoCarritoError = (estado) => ({
+  type: AGREGAR_PRODUCTO_CARRITO_ERROR,
+  payload: estado,
+});
+
+export function abrirCerrarMenuACtion() {
+  return (dispatch) => {
+    dispatch(abrirCerrarMenu());
+  };
+}
+
+const abrirCerrarMenu = () => ({
+  type: MENU,
 });
