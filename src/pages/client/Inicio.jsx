@@ -8,6 +8,8 @@ import ProductoVistaPrevia from "../../components/ProductoVistaPrevia";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { obtenerProductosClienteAction } from "../../actions/ClientAction";
 import { obtenerEventosClienteAction } from "../../actions/ClientAction";
+import { obtenerSubCategoriasClienteAction } from "../../actions/ClientAction";
+import { obtenerCategoriasClienteAction } from "../../actions/ClientAction";
 
 const Inicio = () => {
   //DEFINIR ELEMENTos
@@ -22,6 +24,14 @@ const Inicio = () => {
 
     const obtenerEventos = () => dispatch(obtenerEventosClienteAction());
     obtenerEventos();
+
+    const obtenerSubCategorias = () =>
+      dispatch(obtenerSubCategoriasClienteAction());
+    obtenerSubCategorias();
+
+    const obtenerCategoriasCliente = () =>
+      dispatch(obtenerCategoriasClienteAction());
+    obtenerCategoriasCliente();
   }, []);
   return (
     <div className='flex flex-col w-full p-1'>
@@ -41,7 +51,7 @@ const Inicio = () => {
         </div>
         <div className='flex w-full justify-center mt-2'>
           <Link
-            to=''
+            to='/home/all-products'
             className='uppercase bg-blue-400 hover:bg-blue-500 py-1 px-2 rounded-md font-semibold text-white'
           >
             Ver mas

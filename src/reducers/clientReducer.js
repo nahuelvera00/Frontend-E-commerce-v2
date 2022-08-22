@@ -9,12 +9,20 @@ import {
   AGREGAR_PRODUCTO_CARRITO_ERROR,
   AGREGAR_PRODUCTO_CARRITO_EXITO,
   MENU,
+  OBTENER_CATEGORIAS_CLIENTE,
+  OBTENER_CATEGORIAS_CLIENTE_EXITO,
+  OBTENER_CATEGORIAS_CLIENTE_ERROR,
+  OBTENER_SUBCATEGORIAS_CLIENTE,
+  OBTENER_SUBCATEGORIAS_CLIENTE_EXITO,
+  OBTENER_SUBCATEGORIAS_CLIENTE_ERROR,
 } from "../types";
 
 const initialState = {
   productos: [],
   carrito: [],
   eventos: [],
+  categorias: [],
+  subCategorias: [],
   menu: false,
   loading: false,
   error: null,
@@ -78,6 +86,40 @@ export default function (state = initialState, action) {
       return {
         ...state,
         menu: !state.menu,
+      };
+    case OBTENER_SUBCATEGORIAS_CLIENTE:
+      return {
+        ...state,
+        loading: true,
+      };
+    case OBTENER_SUBCATEGORIAS_CLIENTE_EXITO:
+      return {
+        ...state,
+        subCategorias: action.payload,
+        loading: false,
+      };
+    case OBTENER_SUBCATEGORIAS_CLIENTE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case OBTENER_CATEGORIAS_CLIENTE:
+      return {
+        ...state,
+        loading: true,
+      };
+    case OBTENER_CATEGORIAS_CLIENTE_EXITO:
+      return {
+        ...state,
+        loading: false,
+        categorias: action.payload,
+      };
+    case OBTENER_CATEGORIAS_CLIENTE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;

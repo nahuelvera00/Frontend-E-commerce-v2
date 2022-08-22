@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import styled from "styled-components";
 
 //REDUX
 import { useSelector, useDispatch } from "react-redux";

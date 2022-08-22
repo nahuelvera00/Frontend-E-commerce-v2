@@ -216,18 +216,7 @@ export function obtenerSubCategoriasAction() {
     dispatch(obtenerSubCategorias());
 
     try {
-      //Configuracion de token
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const respuesta = await clienteAxios.get("/admin/sub-categories", config);
+      const respuesta = await clienteAxios.get("/admin/sub-categories");
       dispatch(obtenerSubCategoriasExito(respuesta.data));
     } catch (error) {
       console.log(error);

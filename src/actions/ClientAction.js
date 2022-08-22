@@ -9,6 +9,12 @@ import {
   AGREGAR_PRODUCTO_CARRITO_ERROR,
   AGREGAR_PRODUCTO_CARRITO_EXITO,
   MENU,
+  OBTENER_SUBCATEGORIAS_CLIENTE,
+  OBTENER_SUBCATEGORIAS_CLIENTE_EXITO,
+  OBTENER_SUBCATEGORIAS_CLIENTE_ERROR,
+  OBTENER_CATEGORIAS_CLIENTE,
+  OBTENER_CATEGORIAS_CLIENTE_EXITO,
+  OBTENER_CATEGORIAS_CLIENTE_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/clienteAxios";
@@ -107,4 +113,59 @@ export function abrirCerrarMenuACtion() {
 
 const abrirCerrarMenu = () => ({
   type: MENU,
+});
+
+//OBTENER CATEGORIAS
+export function obtenerCategoriasClienteAction() {
+  return async (dispatch) => {
+    dispatch(obtenerCategorias());
+
+    try {
+      const respuesta = await clienteAxios.get("/admin/categories");
+      dispatch(obtenerCategoriasExito(respuesta.data));
+    } catch (error) {
+      dispatch(obtenerCategoriasError(true));
+    }
+  };
+}
+
+const obtenerCategorias = () => ({
+  type: OBTENER_CATEGORIAS_CLIENTE,
+});
+const obtenerCategoriasExito = (respuesta) => ({
+  type: OBTENER_CATEGORIAS_CLIENTE_EXITO,
+  payload: respuesta,
+});
+const obtenerCategoriasError = (estado) => ({
+  type: OBTENER_CATEGORIAS_CLIENTE_ERROR,
+  payload: estado,
+});
+
+//OBTENER SUB-CATEGORIAS
+export function obtenerSubCategoriasClienteAction() {
+  return async (dispatch) => {
+    dispatch(obtenerSubCategorias());
+
+    try {
+      const respuesta = await clienteAxios.get("/admin/sub-categories");
+      dispatch(obtenerSubCategoriasExito(respuesta.data));
+    } catch (error) {
+      console.log(error);
+      dispatch(obtenerSubCategoriasError(true));
+    }
+  };
+}
+
+const obtenerSubCategorias = () => ({
+  type: OBTENER_SUBCATEGORIAS_CLIENTE,
+});
+
+const obtenerSubCategoriasExito = (respuesta) => ({
+  type: OBTENER_SUBCATEGORIAS_CLIENTE_EXITO,
+  payload: respuesta,
+});
+
+const obtenerSubCategoriasError = (estado) => ({
+  type: OBTENER_SUBCATEGORIAS_CLIENTE_ERROR,
+  payload: estado,
 });

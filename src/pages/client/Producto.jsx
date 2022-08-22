@@ -110,7 +110,7 @@ const Producto = () => {
           </p>
         )}
       </div>
-      <div className='mx-5 pt-3'>
+      <div className='mx-5 mb-5 pt-3'>
         <div className='flex'>
           <h2 className='uppercase font-semibold text-slate-600 underline'>
             marca:

@@ -26,6 +26,8 @@ import AddProductsEvent from "./pages/admin/AddProductsEvent";
 import ClientLayout from "./layout/ClientLayout";
 import Inicio from "./pages/client/Inicio";
 import Producto from "./pages/client/Producto";
+import ProductosCategoria from "./pages/client/ProductosCategoria";
+import AllProducts from "./pages/client/AllProducts";
 
 function App() {
   return (
@@ -37,6 +39,11 @@ function App() {
             <Route path='home' element={<ClientLayout />}>
               <Route index element={<Inicio />} />
               <Route path='product/:id' element={<Producto />} />
+              <Route path='all-products' element={<AllProducts />} />
+              <Route
+                path='product/:gender/:categoria'
+                element={<ProductosCategoria />}
+              />
             </Route>
             //AUTENTICACION
             <Route path='auth' element={<AuthLayout />}>
