@@ -29,13 +29,14 @@ const Producto = () => {
   const [talle, setTalle] = useState({
     talle: "small",
   });
+
   //SELECCIONAR TALLE PRODUCTO
   const onChange = (e) => {
     setTalle({ ...talle, [e.target.name]: e.target.value });
   };
   //AGREGAR PRODUCTO AL CARRO
   const agregarProductoCarro = (talle, id) => {
-    dispatch(agregarProductoCarritoAction(talle, id));
+    dispatch(agregarProductoCarritoAction(talle, producto[0]));
   };
 
   return (

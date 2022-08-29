@@ -28,6 +28,9 @@ import Inicio from "./pages/client/Inicio";
 import Producto from "./pages/client/Producto";
 import ProductosCategoria from "./pages/client/ProductosCategoria";
 import AllProducts from "./pages/client/AllProducts";
+import Carrito from "./pages/client/Carrito";
+import Perfil from "./pages/client/Perfil";
+import ProductosMarca from "./pages/client/ProductosMarca";
 
 function App() {
   return (
@@ -40,10 +43,13 @@ function App() {
               <Route index element={<Inicio />} />
               <Route path='product/:id' element={<Producto />} />
               <Route path='all-products' element={<AllProducts />} />
+              <Route path='products/:brand' element={<ProductosMarca />} />
               <Route
                 path='product/:gender/:categoria'
                 element={<ProductosCategoria />}
               />
+              <Route path='cart' element={<Carrito />} />
+              <Route path='profile' element={<Perfil />} />
             </Route>
             //AUTENTICACION
             <Route path='auth' element={<AuthLayout />}>

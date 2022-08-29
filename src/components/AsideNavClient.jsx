@@ -22,7 +22,7 @@ const AsideNavClient = () => {
   return (
     <div
       className={`sm:hidden fixed links h-full w-3/4 bg-white ease-in duration-300 z-40 ${
-        menu ? "left-0" : "-left-[400px]"
+        menu ? "left-0" : "-left-[500px]"
       } `}
     >
       <div className='w-full p-3'>
