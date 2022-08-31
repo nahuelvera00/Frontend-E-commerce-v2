@@ -39,7 +39,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className='flex flex-col m-5 h-[345px] justify-center items-center z-10'>
+    <div className='flex flex-col m-5 h-[345px] justify-center items-center z-10 transition-all'>
       <img
         className='px-2 min-h-[345px] w-full object-cover'
         src={`${import.meta.env.VITE_BACKEND_URL}/images/${selectedImage}`}

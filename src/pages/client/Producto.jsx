@@ -56,7 +56,7 @@ const Producto = () => {
                   ${producto[0].price}
                 </p>
                 <p className='text-md font-semibold text-slate-700'>
-                  ${(producto[0].price / 100) * descuento}
+                  ${producto[0].price - (producto[0].price / 100) * descuento}
                 </p>
               </div>
             ) : (

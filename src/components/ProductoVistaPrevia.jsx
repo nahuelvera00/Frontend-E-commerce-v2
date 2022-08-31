@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//REDUX
+import { useSelector } from "react-redux";
+
 const ProductoVistaPrevia = ({ producto }) => {
+  const eventos = useSelector((state) => state.cliente.eventos);
+  const eventoAplicado =
+    producto.evento === null
+      ? 0
+      : eventos.filter((e) => e._id === producto.evento)[0].descuento;
   const URL = `${import.meta.env.VITE_BACKEND_URL}/images/${producto.image[0]}`;
   return (
     <Link
@@ -18,7 +26,9 @@ const ProductoVistaPrevia = ({ producto }) => {
         </div>
         <p className='text-sm mt-1 py-2'>{producto.name}</p>
       </div>
-      <p className='text-gray-400 font-semibold'>$ {producto.price}</p>
+      <p className='text-gray-400 font-semibold'>
+        $ {producto.price - (producto.price / 100) * eventoAplicado}
+      </p>
     </Link>
   );
 };

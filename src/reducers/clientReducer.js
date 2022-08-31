@@ -8,6 +8,9 @@ import {
   AGREGAR_PRODUCTO_CARRITO,
   AGREGAR_PRODUCTO_CARRITO_ERROR,
   AGREGAR_PRODUCTO_CARRITO_EXITO,
+  QUITAR_PRODUCTO_CARRITO,
+  QUITAR_PRODUCTO_CARRITO_EXITO,
+  QUITAR_PRODUCTO_CARRITO_ERROR,
   MENU,
   OBTENER_CATEGORIAS_CLIENTE,
   OBTENER_CATEGORIAS_CLIENTE_EXITO,
@@ -81,6 +84,23 @@ export default function (state = initialState, action) {
         ...state,
         error: action.payload,
         loading: false,
+      };
+    case QUITAR_PRODUCTO_CARRITO:
+      return {
+        ...state,
+        loading: true,
+      };
+    case QUITAR_PRODUCTO_CARRITO_EXITO:
+      return {
+        ...state,
+        loading: false,
+        carrito: state.carrito.filter((e) => e.producto._id !== action.payload),
+      };
+    case QUITAR_PRODUCTO_CARRITO_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     case MENU:
       return {

@@ -8,6 +8,9 @@ import {
   AGREGAR_PRODUCTO_CARRITO,
   AGREGAR_PRODUCTO_CARRITO_ERROR,
   AGREGAR_PRODUCTO_CARRITO_EXITO,
+  QUITAR_PRODUCTO_CARRITO,
+  QUITAR_PRODUCTO_CARRITO_EXITO,
+  QUITAR_PRODUCTO_CARRITO_ERROR,
   MENU,
   OBTENER_SUBCATEGORIAS_CLIENTE,
   OBTENER_SUBCATEGORIAS_CLIENTE_EXITO,
@@ -102,6 +105,33 @@ const agregarProductoCarritoExito = (producto) => ({
 
 const agregarProductoCarritoError = (estado) => ({
   type: AGREGAR_PRODUCTO_CARRITO_ERROR,
+  payload: estado,
+});
+
+//ELIMINAR PRODUCTO DEL CARRITO
+export function quitarProductoCarritoAction(id) {
+  return async (dispatch) => {
+    dispatch(quitarProducto());
+
+    try {
+      dispatch(quitarProductoCarritoExito(id));
+    } catch (error) {
+      dispatch(quitarProductoCarritoError(true));
+    }
+  };
+}
+
+const quitarProducto = () => ({
+  type: QUITAR_PRODUCTO_CARRITO,
+});
+
+const quitarProductoCarritoExito = (producto) => ({
+  type: QUITAR_PRODUCTO_CARRITO_EXITO,
+  payload: producto,
+});
+
+const quitarProductoCarritoError = (estado) => ({
+  type: QUITAR_PRODUCTO_CARRITO_ERROR,
   payload: estado,
 });
 

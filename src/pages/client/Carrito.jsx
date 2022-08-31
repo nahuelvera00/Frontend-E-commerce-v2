@@ -7,7 +7,23 @@ import ProductoPreviewCart from "../../components/ProductoPreviewCart";
 const Carrito = () => {
   const carrito = useSelector((state) => state.cliente.carrito);
   const eventos = useSelector((state) => state.cliente.eventos);
-  let total = 0;
+
+  const calcularPrecio = (producto) => {
+    let descuento = 0;
+    descuento = eventos.filter((e) => (e._id = producto.evento))[0].descuento;
+
+    const precio = producto.price - (producto.price / 100) * descuento;
+
+    return precio;
+  };
+
+  const precio = carrito
+    .map((ev) =>
+      ev.producto.evento !== null
+        ? calcularPrecio(ev.producto)
+        : ev.producto.price
+    )
+    .reduce((prev, curr) => prev + curr, 0);
 
   return (
     <div className='w-full px-5 mb-5'>
@@ -33,8 +49,8 @@ const Carrito = () => {
       {carrito.length > 0 ? (
         <div>
           <div className='mb-3'>
-            <p className='uppercase font-bold flex justify-end pr-2'>
-              total: $xxxx
+            <p className='uppercase font-bold flex justify-center pr-2 text-xl'>
+              total: ${precio}
             </p>
           </div>
           <div className='w-full flex justify-center bg-slate-800 text-white rounded-md'>

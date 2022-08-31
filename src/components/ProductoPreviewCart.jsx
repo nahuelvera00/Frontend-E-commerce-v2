@@ -2,14 +2,21 @@ import React from "react";
 
 //REDUX
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { quitarProductoCarritoAction } from "../actions/ClientAction";
 
 const ProductoPreviewCart = ({ talle, producto }) => {
+  const dispatch = useDispatch();
   const eventos = useSelector((state) => state.cliente.eventos);
   let descuento = 0;
   if (producto.evento !== null) {
     const eventoSeleccionado = eventos.filter((e) => e._id === producto.evento);
     var eventoAplicado = eventoSeleccionado[0].descuento;
   }
+
+  const borrarProductoCarrito = (id) => {
+    dispatch(quitarProductoCarritoAction(id));
+  };
 
   return (
     <div className='mb-2 flex max-h-20 bg-slate-200 rounded-md p-1'>
@@ -42,11 +49,11 @@ const ProductoPreviewCart = ({ talle, producto }) => {
             $
             {producto.evento === null
               ? producto.price
-              : (producto.price / 100) * eventoAplicado}
+              : producto.price - (producto.price / 100) * eventoAplicado}
           </p>
         </div>
         <div className='w-1/12 flex'>
-          <button>
+          <button onClick={(e) => borrarProductoCarrito(producto._id)}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
