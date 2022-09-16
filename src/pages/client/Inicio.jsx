@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 //COMPONENTES
 import ProductoVistaPrevia from "../../components/ProductoVistaPrevia";
@@ -14,6 +14,7 @@ import { obtenerProductosClienteAction } from "../../actions/ClientAction";
 import { obtenerEventosClienteAction } from "../../actions/ClientAction";
 import { obtenerSubCategoriasClienteAction } from "../../actions/ClientAction";
 import { obtenerCategoriasClienteAction } from "../../actions/ClientAction";
+import { obtenerMetodosPagoAction } from "../../actions/ClientAction";
 
 const Inicio = () => {
   //DEFINIR ELEMENTos
@@ -24,20 +25,28 @@ const Inicio = () => {
 
   const subCategorias = useSelector((state) => state.cliente.subCategorias);
   //OBTENER PRODUCTOS AL CARGAR EL COMPONENTE
-  useState(() => {
-    const obtenerProductos = () => dispatch(obtenerProductosClienteAction());
-    obtenerProductos();
 
+  useEffect(() => {
     const obtenerEventos = () => dispatch(obtenerEventosClienteAction());
-    obtenerEventos();
+
+    const obtenerProductos = () => dispatch(obtenerProductosClienteAction());
 
     const obtenerSubCategorias = () =>
       dispatch(obtenerSubCategoriasClienteAction());
-    obtenerSubCategorias();
 
     const obtenerCategoriasCliente = () =>
       dispatch(obtenerCategoriasClienteAction());
-    obtenerCategoriasCliente();
+
+    const obtenerMetodos = () => dispatch(obtenerMetodosPagoAction());
+
+    const traerDatos = async () => {
+      await obtenerEventos();
+      await obtenerProductos();
+      await obtenerSubCategorias();
+      await obtenerCategoriasCliente();
+      await obtenerMetodos();
+    };
+    traerDatos();
   }, []);
   return (
     <div className='flex flex-col w-full p-1'>

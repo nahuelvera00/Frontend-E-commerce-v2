@@ -4,7 +4,7 @@ import clienteAxios from "../config/clienteAxios";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState(null);
   const [cargando, setCargando] = useState(true);
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
 
       try {
         const { data } = await clienteAxios("/auth/perfil", config);
-        setAuth(data);
+        setAuth({ data });
         if (data.rol === "admin") {
           navigate("/admin");
         } else {
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
         }
         // navigate('/proyectos')
       } catch (error) {
-        setAuth({});
+        setAuth(null);
       } finally {
         setCargando(false);
       }
@@ -45,6 +45,9 @@ const AuthProvider = ({ children }) => {
 
   const cerrarSesionAuth = () => {
     setAuth({});
+    localStorage.removeItem("rol");
+    localStorage.removeItem("token");
+
     navigate("/home");
   };
 

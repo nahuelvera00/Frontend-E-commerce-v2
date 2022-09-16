@@ -125,6 +125,9 @@ const Producto = () => {
           {producto[0].description}
         </p>
       </div>
+      <div className='w-full flex justify-center'>
+        <p className='uppercase font-semibold py-2'>Productos Relacionados</p>
+      </div>
     </div>
   );
 };

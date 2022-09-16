@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 
 const ProductoVistaPrevia = ({ producto }) => {
   const eventos = useSelector((state) => state.cliente.eventos);
-  const eventoAplicado =
-    producto.evento === null
-      ? 0
-      : eventos.filter((e) => e._id === producto.evento)[0].descuento;
+
+  let eventoAplicado = 0;
+  if (producto.evento !== null) {
+    eventoAplicado = eventos.filter((e) => e._id === producto.evento)[0]
+      .descuento;
+  }
   const URL = `${import.meta.env.VITE_BACKEND_URL}/images/${producto.image[0]}`;
   return (
     <Link

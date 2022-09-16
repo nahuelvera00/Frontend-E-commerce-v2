@@ -2,9 +2,12 @@ import React from "react";
 
 //REDUX
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import ProductoPreviewCart from "../../components/ProductoPreviewCart";
+import useAuth from "../../hooks/useAuth";
 
 const Carrito = () => {
+  const { auth } = useAuth();
   const carrito = useSelector((state) => state.cliente.carrito);
   const eventos = useSelector((state) => state.cliente.eventos);
 
@@ -24,6 +27,8 @@ const Carrito = () => {
         : ev.producto.price
     )
     .reduce((prev, curr) => prev + curr, 0);
+
+  const handleClick = () => {};
 
   return (
     <div className='w-full px-5 mb-5'>
@@ -53,10 +58,22 @@ const Carrito = () => {
               total: ${precio}
             </p>
           </div>
-          <div className='w-full flex justify-center bg-slate-800 text-white rounded-md'>
-            <button className='p-2 uppercase font-bold'>COMPRAR</button>
-          </div>
         </div>
+      ) : null}
+      {carrito.length > 0 ? (
+        auth !== null ? (
+          <div className='w-full flex justify-center bg-slate-800 text-white rounded-md'>
+            <Link to='/home/buy' className='p-2 uppercase font-bold'>
+              COMPRAR
+            </Link>
+          </div>
+        ) : (
+          <div className='w-full flex justify-center bg-slate-800 text-white rounded-md'>
+            <Link to='/auth' className='p-2 uppercase font-bold'>
+              debes iniciar sesion
+            </Link>
+          </div>
+        )
       ) : null}
     </div>
   );

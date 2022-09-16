@@ -31,6 +31,7 @@ import AllProducts from "./pages/client/AllProducts";
 import Carrito from "./pages/client/Carrito";
 import Perfil from "./pages/client/Perfil";
 import ProductosMarca from "./pages/client/ProductosMarca";
+import BuyForm from "./pages/client/BuyForm";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
                 element={<ProductosCategoria />}
               />
               <Route path='cart' element={<Carrito />} />
+              <Route path='buy' element={<BuyForm />} />
               <Route path='profile' element={<Perfil />} />
             </Route>
             //AUTENTICACION

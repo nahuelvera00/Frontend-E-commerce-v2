@@ -18,6 +18,15 @@ import {
   OBTENER_CATEGORIAS_CLIENTE,
   OBTENER_CATEGORIAS_CLIENTE_EXITO,
   OBTENER_CATEGORIAS_CLIENTE_ERROR,
+  OBTENER_METODOS_PAGO,
+  OBTENER_METODOS_PAGO_EXITO,
+  OBTENER_METODOS_PAGO_ERROR,
+  OBTENER_ORDENES_COMPRA_CLIENTE,
+  OBTENER_ORDENES_COMPRA_CLIENTE_EXITO,
+  OBTENER_ORDENES_COMPRA_CLIENTE_ERROR,
+  CREAR_ORDEN_COMPRA,
+  CREAR_ORDEN_COMPRA_EXITO,
+  CREAR_ORDEN_COMPRA_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/clienteAxios";
@@ -197,5 +206,115 @@ const obtenerSubCategoriasExito = (respuesta) => ({
 
 const obtenerSubCategoriasError = (estado) => ({
   type: OBTENER_SUBCATEGORIAS_CLIENTE_ERROR,
+  payload: estado,
+});
+
+//Metodos de PAGO
+//-----------------Obtener metodos de pago-------------------------
+
+export function obtenerMetodosPagoAction() {
+  return async (dispatch) => {
+    dispatch(obtenerMetodosPago());
+    try {
+      const respuesta = await clienteAxios.get("/admin/methods-payment");
+      dispatch(obtenerMetodosPagoExito(respuesta.data));
+    } catch (error) {
+      dispatch(obtenerMetodosPagoError(true));
+    }
+  };
+}
+
+const obtenerMetodosPago = () => ({
+  type: OBTENER_METODOS_PAGO,
+});
+
+const obtenerMetodosPagoExito = (respuesta) => ({
+  type: OBTENER_METODOS_PAGO_EXITO,
+  payload: respuesta,
+});
+
+const obtenerMetodosPagoError = (estado) => ({
+  type: OBTENER_METODOS_PAGO_ERROR,
+  payload: estado,
+});
+
+export function obtenerOrdenesCompraClienteAction() {
+  return async (dispatch) => {
+    dispatch(obtenerOrdenesCompra());
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const respuesta = await clienteAxios.get("/user/orders", config);
+      dispatch(obtenerOrdenesCompraExito(respuesta.data));
+    } catch (error) {
+      dispatch(obtenerOrdenesCompraError(true));
+    }
+  };
+}
+
+const obtenerOrdenesCompra = () => ({
+  type: OBTENER_ORDENES_COMPRA_CLIENTE,
+});
+
+const obtenerOrdenesCompraExito = (respuesta) => ({
+  type: OBTENER_ORDENES_COMPRA_CLIENTE_EXITO,
+  payload: respuesta,
+});
+
+const obtenerOrdenesCompraError = (estado) => ({
+  type: OBTENER_ORDENES_COMPRA_CLIENTE_ERROR,
+  payload: estado,
+});
+
+export function crearOrdenCompraAction(orden) {
+  return async (dispatch) => {
+    dispatch(crearOrdenCompra());
+
+    console.log(orden);
+    try {
+      //Configuracion de token
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const respuesta = await clienteAxios.post(
+        "/user/orders/new-order",
+        orden,
+        config
+      );
+      console.log(respuesta);
+      dispatch(crearOrdenCompraExito(respuesta.data));
+      return true;
+    } catch (error) {
+      dispatch(crearOrdenCompraError(true));
+      return false;
+    }
+  };
+}
+
+const crearOrdenCompra = () => ({
+  type: CREAR_ORDEN_COMPRA,
+});
+
+const crearOrdenCompraExito = (respuesta) => ({
+  type: CREAR_ORDEN_COMPRA_EXITO,
+  payload: respuesta,
+});
+
+const crearOrdenCompraError = (estado) => ({
+  type: CREAR_ORDEN_COMPRA_ERROR,
   payload: estado,
 });

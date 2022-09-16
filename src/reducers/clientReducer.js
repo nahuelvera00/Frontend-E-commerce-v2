@@ -18,6 +18,15 @@ import {
   OBTENER_SUBCATEGORIAS_CLIENTE,
   OBTENER_SUBCATEGORIAS_CLIENTE_EXITO,
   OBTENER_SUBCATEGORIAS_CLIENTE_ERROR,
+  OBTENER_METODOS_PAGO,
+  OBTENER_METODOS_PAGO_EXITO,
+  OBTENER_METODOS_PAGO_ERROR,
+  OBTENER_ORDENES_COMPRA_CLIENTE,
+  OBTENER_ORDENES_COMPRA_CLIENTE_EXITO,
+  OBTENER_ORDENES_COMPRA_CLIENTE_ERROR,
+  CREAR_ORDEN_COMPRA,
+  CREAR_ORDEN_COMPRA_EXITO,
+  CREAR_ORDEN_COMPRA_ERROR,
 } from "../types";
 
 const initialState = {
@@ -26,6 +35,8 @@ const initialState = {
   eventos: [],
   categorias: [],
   subCategorias: [],
+  pedidos: [],
+  metodosPago: [],
   menu: false,
   loading: false,
   error: null,
@@ -136,6 +147,58 @@ export default function (state = initialState, action) {
         categorias: action.payload,
       };
     case OBTENER_CATEGORIAS_CLIENTE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case OBTENER_METODOS_PAGO:
+      return {
+        ...state,
+        loading: true,
+      };
+    case OBTENER_METODOS_PAGO_EXITO:
+      return {
+        ...state,
+        loading: false,
+        metodosPago: action.payload,
+      };
+    case OBTENER_METODOS_PAGO_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case OBTENER_ORDENES_COMPRA_CLIENTE:
+      return {
+        ...state,
+        loading: true,
+      };
+    case OBTENER_ORDENES_COMPRA_CLIENTE_EXITO:
+      return {
+        ...state,
+        pedidos: action.payload,
+
+        loading: false,
+      };
+    case OBTENER_ORDENES_COMPRA_CLIENTE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CREAR_ORDEN_COMPRA:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CREAR_ORDEN_COMPRA_EXITO:
+      return {
+        ...state,
+        pedidos: [...state.pedidos, action.payload],
+        loading: false,
+      };
+    case CREAR_ORDEN_COMPRA_ERROR:
       return {
         ...state,
         loading: false,
