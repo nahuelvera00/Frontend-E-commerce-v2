@@ -32,6 +32,7 @@ import Carrito from "./pages/client/Carrito";
 import Perfil from "./pages/client/Perfil";
 import ProductosMarca from "./pages/client/ProductosMarca";
 import BuyForm from "./pages/client/BuyForm";
+import Pedido from "./components/Pedido";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
               <Route path='cart' element={<Carrito />} />
               <Route path='buy' element={<BuyForm />} />
               <Route path='profile' element={<Perfil />} />
+              <Route path='profile/order/:id' element={<Pedido />} />
             </Route>
             //AUTENTICACION
             <Route path='auth' element={<AuthLayout />}>

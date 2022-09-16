@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const TagPedido = ({ pedido }) => {
-  console.log(pedido);
   //FORMATEAR FECHA
   let fecha = pedido.fechaCompra;
   fecha = fecha.replace(/\D/g, " ");
@@ -10,7 +9,7 @@ const TagPedido = ({ pedido }) => {
 
   return (
     <Link
-      to='/home'
+      to={`/home/profile/order/${pedido._id}`}
       className={`${
         pedido.estado == "Pago Pendiente" ? "bg-yellow-400" : "bg-blue-200"
       } rounded-md w-full`}
