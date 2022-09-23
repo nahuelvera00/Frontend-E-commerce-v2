@@ -17,7 +17,7 @@ const Usuario = ({ usuario }) => {
   console.log(pedidos);
   const { cerrarSesionAuth } = useAuth();
   return (
-    <div className='w-full flex flex-col'>
+    <div className='w-full md:w-1/2 flex flex-col'>
       <div className='bg-gray-200 rounded-xl mt-2 mx-2 p-1'>
         <h1 className='uppercase font-semibold py-2 w-full flex justify-center'>
           perfil

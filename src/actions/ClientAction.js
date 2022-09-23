@@ -27,6 +27,9 @@ import {
   CREAR_ORDEN_COMPRA,
   CREAR_ORDEN_COMPRA_EXITO,
   CREAR_ORDEN_COMPRA_ERROR,
+  ENVIAR_COMPROBANTE_COMPRA,
+  ENVIAR_COMPROBANTE_COMPRA_EXITO,
+  ENVIAR_COMPROBANTE_COMPRA_ERROR,
 } from "../types";
 
 import clienteAxios from "../config/clienteAxios";
@@ -295,7 +298,6 @@ export function crearOrdenCompraAction(orden) {
         orden,
         config
       );
-      console.log(respuesta);
       dispatch(crearOrdenCompraExito(respuesta.data));
       return true;
     } catch (error) {
@@ -316,5 +318,46 @@ const crearOrdenCompraExito = (respuesta) => ({
 
 const crearOrdenCompraError = (estado) => ({
   type: CREAR_ORDEN_COMPRA_ERROR,
+  payload: estado,
+});
+
+export function enviarComprobantePagoAction(comprobante, id) {
+  return async (dispatch) => {
+    dispatch(enviarComprobante());
+
+    try {
+      //Configuracion de token
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const respuesta = await clienteAxios.put(
+        `/user/orders/${id}`,
+        comprobante,
+        config
+      );
+      dispatch(enviarComprobanteExito(respuesta.data));
+      return true;
+    } catch (error) {
+      dispatch(enviarComprobanteError(true));
+      return false;
+    }
+  };
+}
+
+const enviarComprobante = () => ({
+  type: ENVIAR_COMPROBANTE_COMPRA,
+});
+const enviarComprobanteExito = (respuesta) => ({
+  type: ENVIAR_COMPROBANTE_COMPRA_EXITO,
+  payload: respuesta,
+});
+const enviarComprobanteError = (estado) => ({
+  type: ENVIAR_COMPROBANTE_COMPRA_ERROR,
   payload: estado,
 });

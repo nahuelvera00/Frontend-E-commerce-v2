@@ -39,16 +39,8 @@ const Carousel = () => {
   };
 
   return (
-    <div className='flex flex-col m-5 h-[345px] justify-center items-center z-10 transition-all'>
-      <img
-        className='px-2 min-h-[345px] w-full object-cover'
-        src={`${import.meta.env.VITE_BACKEND_URL}/images/${selectedImage}`}
-        alt='Imagen'
-      />
-      <button
-        className='absolute left-2 font-bold text-2xl z-10'
-        onClick={previous}
-      >
+    <div className='flex m-5 p-2  justify-center items-center z-10 transition-all'>
+      <button className='font-bold text-2xl z-10' onClick={previous}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           className='h-6 w-6'
@@ -64,7 +56,13 @@ const Carousel = () => {
           />
         </svg>
       </button>
-      <button className='absolute right-2 font-bold text-2xl' onClick={next}>
+      <img
+        className='px-2 min-h-[345px] w-full object-cover'
+        src={`${import.meta.env.VITE_BACKEND_URL}/images/${selectedImage}`}
+        alt='Imagen'
+      />
+
+      <button className='font-bold text-2xl' onClick={next}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           className='h-6 w-6'

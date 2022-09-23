@@ -14,7 +14,7 @@ const NavBarCliente = () => {
   return (
     <div className='flex justify-between items-center'>
       <div className='flex justify-center items-center gap-4'>
-        <button type='button' onClick={handleClick}>
+        <button className='md:hidden' type='button' onClick={handleClick}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-8 w-8 text-white'

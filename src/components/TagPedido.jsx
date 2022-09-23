@@ -11,8 +11,14 @@ const TagPedido = ({ pedido }) => {
     <Link
       to={`/home/profile/order/${pedido._id}`}
       className={`${
-        pedido.estado == "Pago Pendiente" ? "bg-yellow-400" : "bg-blue-200"
-      } rounded-md w-full`}
+        pedido.estado == "Pago Pendiente"
+          ? "bg-yellow-400"
+          : pedido.estado == "Pago a Confirmar"
+          ? "bg-blue-200"
+          : pedido.estado == "Pago Confirmado"
+          ? "bg-green-200"
+          : ""
+      } rounded-md w-full mb-2`}
     >
       <div className='w-full'>
         <p className='flex w-full uppercase font-semibold py-1 px-1'>

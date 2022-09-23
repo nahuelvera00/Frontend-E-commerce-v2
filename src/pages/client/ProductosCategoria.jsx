@@ -28,18 +28,20 @@ const ProductosCategoria = () => {
           ? `mujer-${params.categoria}`
           : params.categoria}
       </h1>
-      <div className='mx-5 my-5 grid grid-cols-2 gap-6'>
-        {params.gender === "all" ? (
-          productosCategoria.map((producto) => (
-            <ProductoVistaPrevia producto={producto} key={producto._id} />
-          ))
-        ) : productosGenero.length > 0 ? (
-          productosGenero.map((producto) => (
-            <ProductoVistaPrevia producto={producto} key={producto._id} />
-          ))
-        ) : (
-          <p>No hay Productos de la Categoria Seleccionada</p>
-        )}
+      <div className='w-full flex justify-center'>
+        <div className='mx-5 my-5 grid grid-cols-2 gap-6 md:w-2/4'>
+          {params.gender === "all" ? (
+            productosCategoria.map((producto) => (
+              <ProductoVistaPrevia producto={producto} key={producto._id} />
+            ))
+          ) : productosGenero.length > 0 ? (
+            productosGenero.map((producto) => (
+              <ProductoVistaPrevia producto={producto} key={producto._id} />
+            ))
+          ) : (
+            <p>No hay Productos de la Categoria Seleccionada</p>
+          )}
+        </div>
       </div>
     </div>
   );

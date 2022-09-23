@@ -19,7 +19,7 @@ const ProductoPreviewCart = ({ talle, producto }) => {
   };
 
   return (
-    <div className='mb-2 flex max-h-20 bg-slate-200 rounded-md p-1'>
+    <div className='mb-2 flex max-h-20 md:max-h-32 bg-slate-200 rounded-md p-1'>
       <div className='flex items-center gap-2'>
         <div className='w-2/12 rounded-md'>
           <img

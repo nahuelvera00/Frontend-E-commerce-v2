@@ -27,6 +27,9 @@ import {
   CREAR_ORDEN_COMPRA,
   CREAR_ORDEN_COMPRA_EXITO,
   CREAR_ORDEN_COMPRA_ERROR,
+  ENVIAR_COMPROBANTE_COMPRA,
+  ENVIAR_COMPROBANTE_COMPRA_EXITO,
+  ENVIAR_COMPROBANTE_COMPRA_ERROR,
 } from "../types";
 
 const initialState = {
@@ -199,6 +202,25 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case CREAR_ORDEN_COMPRA_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case ENVIAR_COMPROBANTE_COMPRA:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ENVIAR_COMPROBANTE_COMPRA_EXITO:
+      return {
+        ...state,
+        loading: false,
+        pedidos: state.pedidos.map((e) =>
+          e._id === action.payload._id ? action.payload : e
+        ),
+      };
+    case ENVIAR_COMPROBANTE_COMPRA_ERROR:
       return {
         ...state,
         loading: false,
