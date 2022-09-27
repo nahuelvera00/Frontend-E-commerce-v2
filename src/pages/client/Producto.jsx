@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Carousel from "../../components/Carousel";
 
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { agregarProductoCarritoAction } from "../../actions/ClientAction";
+import { obtenerProductosClienteAction } from "../../actions/ClientAction";
+import { obtenerEventosClienteAction } from "../../actions/ClientAction";
 
 const Producto = () => {
   const params = useParams();
   const dispatch = useDispatch();
+
   const productos = useSelector((state) => state.cliente.productos);
+
   const producto = productos.filter((producto) => producto._id === params.id);
   const eventos = useSelector((state) => state.cliente.eventos);
   const eventoAplicado = eventos.filter(
@@ -22,10 +26,12 @@ const Producto = () => {
     descuento += evento.descuento;
   }
   let suma = 0;
+
   const stock = producto[0].waist;
   for (let valor in stock) {
     suma += stock[valor];
   }
+
   const [talle, setTalle] = useState({
     talle: "small",
   });

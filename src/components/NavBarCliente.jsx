@@ -1,19 +1,46 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { abrirCerrarMenuACtion } from "../actions/ClientAction";
+import { obtenerSubCategoriasClienteAction } from "../actions/ClientAction";
 
 const NavBarCliente = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const obtenerDatos = () => dispatch(obtenerSubCategoriasClienteAction());
+    obtenerDatos();
+  }, []);
+
   const carrito = useSelector((state) => state.cliente.carrito);
+  const subCategorias = useSelector((state) => state.cliente.subCategorias);
+
   const handleClick = () => {
     dispatch(abrirCerrarMenuACtion());
   };
+  const [menuHombre, setMenuHombre] = useState(false);
+  const [menuMujer, setMenuMujer] = useState(false);
+
+  const handleClickHombre = () => {
+    setMenuHombre(!menuHombre);
+
+    if (menuMujer) {
+      setMenuMujer(false);
+    }
+  };
+  const handleClickMujer = () => {
+    setMenuMujer(!menuMujer);
+
+    if (menuHombre) {
+      setMenuHombre(false);
+    }
+  };
   return (
     <div className='flex justify-between items-center'>
-      <div className='flex justify-center items-center gap-4'>
+      <div className='flex justify-center items-center gap-5'>
         <button className='md:hidden' type='button' onClick={handleClick}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -31,9 +58,107 @@ const NavBarCliente = () => {
           </svg>
         </button>
 
-        <Link to='' className='text-white font-semibold'>
+        <Link to='' className='text-white font-semibold mr-5'>
           <p>E-Commerce</p>
         </Link>
+        <div className='hidden md:flex gap-2 h-full uppercase text-white'>
+          <button
+            type='button'
+            className='w-full h-full flex gap-2 items-center uppercase'
+            onClick={handleClickHombre}
+          >
+            <p className='font-bold'>hombre</p>
+            {menuHombre ? (
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-3 h-3'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M15.75 19.5L8.25 12l7.5-7.5'
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-3 h-3'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M8.25 4.5l7.5 7.5-7.5 7.5'
+                />
+              </svg>
+            )}
+          </button>
+          <div className={`${menuHombre ? "flex" : "hidden"} gap-3`}>
+            {subCategorias.map((categoria) => (
+              <Link
+                to={`/home/product/male/${categoria.name}`}
+                key={categoria._id}
+              >
+                <p className='hover:underline'>{categoria.name}</p>
+              </Link>
+            ))}
+          </div>
+          <button
+            type='button'
+            className='w-full h-full flex gap-2 items-center uppercase'
+            onClick={handleClickMujer}
+          >
+            <p className='font-bold'>mujer</p>
+            {menuMujer ? (
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-3 h-3'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M15.75 19.5L8.25 12l7.5-7.5'
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-3 h-3'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M8.25 4.5l7.5 7.5-7.5 7.5'
+                />
+              </svg>
+            )}
+          </button>
+          <div className={`${menuMujer ? "flex" : "hidden"} gap-3`}>
+            {subCategorias.map((categoria) => (
+              <Link
+                to={`/home/product/female/${categoria.name}`}
+                key={categoria._id}
+              >
+                <p className='hover:underline'>{categoria.name}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
       <div className='flex'>
         <Link to='/home/profile'>

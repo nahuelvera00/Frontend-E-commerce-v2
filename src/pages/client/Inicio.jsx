@@ -78,13 +78,13 @@ const Inicio = () => {
         </div>
       </div>
       <div className='w-full flex justify-center'>
-        <div className='flex flex-col gap-2 mb-4 px-10 w-full md:w-3/4'>
+        <div className='flex flex-col md:flex-row gap-2 mb-4 px-10 w-full md:w-3/4'>
           {subCategorias.length > 0
             ? subCategorias.map((subCategoria) => (
                 <Link
                   to={`/home/product/all/${subCategoria.name}`}
                   key={subCategoria._id}
-                  className='bg-slate-600 h-24 text-white hover:bg-white hover:text-slate-600 rounded-md flex justify-center items-center'
+                  className=' bg-slate-600 text-white h-20 hover:bg-gray-100 hover:text-slate-600 rounded-md flex justify-center items-center w-full'
                 >
                   <p className='uppercase font-bold text-xl'>
                     {subCategoria.name}
@@ -97,7 +97,7 @@ const Inicio = () => {
       <div className='w-full'>
         <h2 className='flex justify-center uppercase font-bold mb-3'>Marcas</h2>
         <div className='w-full flex justify-center'>
-          <div className='grid grid-cols-2 md:grid-cols-3 gap-4 mx-10 w-3/4'>
+          <div className='grid grid-cols-3 md:grid-cols-3 gap-5 mx-10 w-3/4 md:w-2/4'>
             <Link to='/home/products/nike'>
               <div>
                 <img src={nike} alt='' />
