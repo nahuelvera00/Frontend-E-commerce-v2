@@ -5,8 +5,7 @@ import Carousel from "../../components/Carousel";
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { agregarProductoCarritoAction } from "../../actions/ClientAction";
-import { obtenerProductosClienteAction } from "../../actions/ClientAction";
-import { obtenerEventosClienteAction } from "../../actions/ClientAction";
+import ProductoVistaPrevia from "../../components/ProductoVistaPrevia";
 
 const Producto = () => {
   const params = useParams();
@@ -15,6 +14,7 @@ const Producto = () => {
   const productos = useSelector((state) => state.cliente.productos);
 
   const producto = productos.filter((producto) => producto._id === params.id);
+
   const eventos = useSelector((state) => state.cliente.eventos);
   const eventoAplicado = eventos.filter(
     (evento) => evento._id === producto[0].evento
@@ -36,6 +36,12 @@ const Producto = () => {
     talle: "small",
   });
 
+  const obtenerAleatorios = (lista) => {
+    return [...lista].sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, 3);
+  };
+  const productosRestantes = productos.filter((e) => e._id !== params.id);
+  const aleatorios = obtenerAleatorios(productosRestantes);
+
   //SELECCIONAR TALLE PRODUCTO
   const onChange = (e) => {
     setTalle({ ...talle, [e.target.name]: e.target.value });
@@ -50,7 +56,7 @@ const Producto = () => {
       <div className='w-full md:flex md:justify-center'>
         <div className='w-full md:w-3/4 md:flex'>
           <div className='md:w-1/2'>
-            <Carousel />
+            <Carousel producto={producto} />
           </div>
           <div className='md:w-1/2 md:mt-5'>
             <div className='mx-5'>
@@ -143,8 +149,17 @@ const Producto = () => {
           </p>
         </div>
       </div>
-      <div className='w-full flex justify-center'>
-        <p className='uppercase font-semibold py-2'>Productos Relacionados</p>
+      <div className='w-full flex flex-col justify-center px-5 pb-5'>
+        <p className='flex uppercase font-semibold py-2 w-full justify-center'>
+          Productos Recomendados
+        </p>
+        <div className='flex justify-center'>
+          <div className='grid md:w-3/4 grid-cols-3'>
+            {aleatorios.map((e) => (
+              <ProductoVistaPrevia producto={e} key={e._id} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

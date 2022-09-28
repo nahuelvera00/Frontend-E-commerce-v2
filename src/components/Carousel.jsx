@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
-//REDUX
-import { useSelector } from "react-redux";
-
-const Carousel = () => {
-  const params = useParams();
-  const productos = useSelector((state) => state.cliente.productos);
-  const producto = productos.filter((producto) => producto._id === params.id);
-
+const Carousel = ({ producto }) => {
   //VARIABLES PARA CARUSEL
   const images = [...producto[0].image];
+
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState(images[0]);
+
+  if (!images.includes(selectedImage)) {
+    setSelectedImage(images[0]);
+  }
 
   const selectNewImageindex = (index, images, next = true) => {
     const condition = next
